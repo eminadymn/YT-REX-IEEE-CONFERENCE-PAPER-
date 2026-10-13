@@ -1,0 +1,16 @@
+recogniser,key,f1,em,n_images
+trocr-small,company,89.09,61.38,347
+trocr-small,date,92.12,91.93,347
+trocr-small,address,83.96,25.07,347
+trocr-small,total,84.15,84.15,347
+trocr-small,avg,87.33,65.63,347
+tesseract,company,72.66,38.04,347
+tesseract,date,70.51,70.32,347
+tesseract,address,71.55,15.85,347
+tesseract,total,55.33,55.33,347
+tesseract,avg,67.51,44.88,347
+easyocr,company,65.25,34.87,347
+easyocr,date,70.41,70.03,347
+easyocr,address,56.35,1.73,347
+easyocr,total,63.4,63.4,347
+easyocr,avg,63.85,42.51,347

@@ -1,0 +1,174 @@
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 28.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 28.6 MB/s eta 0:00:00
+Creating new Ultralytics Settings v0.0.6 file ✅ 
+View Ultralytics Settings with 'yolo settings' or at '/root/.config/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/quickstart/#ultralytics-settings.
+
+>>> RUNNING STAGE 1 <<<
+
+================================================================
+  STAGE 1 — DATA PREP  |  YOLO + Merge + TrOCR + Features
+================================================================
+  Device=cuda  fp16=True  batch=128
+
+  >> TRAIN split: /kaggle/input/datasets/urbikn/sroie-datasetv2/SROIE2019/train/img
+  626 images → YOLO + Merge + TrOCR
+    [detect 50/626]  crops=2435
+    [detect 100/626]  crops=4725
+    [detect 150/626]  crops=7579
+    [detect 200/626]  crops=9979
+    [detect 250/626]  crops=12430
+    [detect 300/626]  crops=14681
+    [detect 350/626]  crops=17479
+    [detect 400/626]  crops=20196
+    [detect 450/626]  crops=22436
+    [detect 500/626]  crops=24799
+    [detect 550/626]  crops=27264
+    [detect 600/626]  crops=29300
+    [detect 626/626]  crops=30694
+  YOLO 62.1s  |  Merge 0.5s  |  Preproc 21.4s
+  OCR'ing 30694 merged crops...
+  OCR total 342.1s
+  Train cache build wall: 457.3s  |  images=626
+
+  >> TEST split: /kaggle/input/datasets/urbikn/sroie-datasetv2/SROIE2019/test/img
+  347 images → YOLO + Merge + TrOCR
+    [detect 50/347]  crops=2477
+    [detect 100/347]  crops=5124
+    [detect 150/347]  crops=7763
+    [detect 200/347]  crops=9974
+    [detect 250/347]  crops=12588
+    [detect 300/347]  crops=14780
+    [detect 347/347]  crops=17018
+  YOLO 33.6s  |  Merge 0.3s  |  Preproc 11.5s
+  OCR'ing 17018 merged crops...
+  OCR total 188.6s
+  Test cache build wall: 253.7s  |  images=347
+
+  Split: train=626  test=347
+  train/candidates_total_train.parquet: cands=7156  pos=1549  imgs_with_pos=591
+  train/candidates_company_train.parquet: cands=16504  pos=592  imgs_with_pos=592
+  train/candidates_date_train.parquet: cands=760  pos=727  imgs_with_pos=591
+  train/candidates_address_train.parquet: cands=66118  pos=612  imgs_with_pos=612
+  test/candidates_total_test.parquet: cands=4100  pos=807  imgs_with_pos=321
+  test/candidates_company_test.parquet: cands=9197  pos=326  imgs_with_pos=326
+  test/candidates_date_test.parquet: cands=405  pos=386  imgs_with_pos=321
+  test/candidates_address_test.parquet: cands=37024  pos=337  imgs_with_pos=337
+  Saved: spatial caches, 4×{train,test} candidate parquets, test_timings.json, split_meta.json
+================================================================
+
+>>> RUNNING STAGE 2 <<<
+
+================================================================
+  STAGE 2 — PER-KEY SMALL LEARNT RANKER  |  5-Fold CV → Test
+================================================================
+  [company] train rows=16504  pos=592 | test rows=9197  pos=326
+  [date] train rows=760  pos=727 | test rows=405  pos=386
+  [address] train rows=66118  pos=612 | test rows=37024  pos=337
+  [total] train rows=7156  pos=1549 | test rows=4100  pos=807
+
+  ── 5-Fold CV : COMPANY ──
+    rows=16504  positives=592  images=626  feats=20
+    Fold 1: train_F1= 89.85%  val_F1= 90.65%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 2: train_F1= 90.20%  val_F1= 90.08%  (n_train_imgs=500, n_val_imgs=126)
+    Fold 3: train_F1= 90.16%  val_F1= 89.16%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 4: train_F1= 90.10%  val_F1= 88.88%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 5: train_F1= 91.38%  val_F1= 85.53%  (n_train_imgs=501, n_val_imgs=125)
+    CV mean: train=90.34% ± 0.53%  |  val=88.86% ± 1.78%
+
+  ── 5-Fold CV : DATE ──
+    rows=760  positives=727  images=605  feats=22
+    Fold 1: train_F1= 97.31%  val_F1= 98.35%  (n_train_imgs=484, n_val_imgs=121)
+    Fold 2: train_F1= 97.11%  val_F1= 99.17%  (n_train_imgs=484, n_val_imgs=121)
+    Fold 3: train_F1= 98.35%  val_F1= 95.04%  (n_train_imgs=484, n_val_imgs=121)
+    Fold 4: train_F1= 97.93%  val_F1= 95.04%  (n_train_imgs=484, n_val_imgs=121)
+    Fold 5: train_F1= 97.73%  val_F1= 97.52%  (n_train_imgs=484, n_val_imgs=121)
+    CV mean: train=97.69% ± 0.44%  |  val=97.02% ± 1.70%
+
+  ── 5-Fold CV : ADDRESS ──
+    rows=66118  positives=612  images=626  feats=31
+    Fold 1: train_F1= 85.03%  val_F1= 86.06%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 2: train_F1= 85.83%  val_F1= 84.85%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 3: train_F1= 85.29%  val_F1= 86.16%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 4: train_F1= 86.42%  val_F1= 82.39%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 5: train_F1= 85.85%  val_F1= 82.66%  (n_train_imgs=500, n_val_imgs=126)
+    CV mean: train=85.68% ± 0.48%  |  val=84.42% ± 1.62%
+
+  ── 5-Fold CV : TOTAL ──
+    rows=7156  positives=1549  images=626  feats=36
+    Fold 1: train_F1= 94.01%  val_F1= 90.40%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 2: train_F1= 95.60%  val_F1= 94.44%  (n_train_imgs=500, n_val_imgs=126)
+    Fold 3: train_F1= 94.81%  val_F1= 86.40%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 4: train_F1= 95.01%  val_F1= 92.00%  (n_train_imgs=501, n_val_imgs=125)
+    Fold 5: train_F1= 96.01%  val_F1= 76.00%  (n_train_imgs=501, n_val_imgs=125)
+    CV mean: train=95.09% ± 0.69%  |  val=87.85% ± 6.48%
+
+  ── Refit on full train + predict on TEST ──
+    [company] top-8 perm importance: line_idx_norm=+0.027, is_merged=+0.024, has_comp_kw=+0.013, has_comp_kw_below=+0.005, h_ratio=+0.001, n_words=+0.001, n_lines_total=+0.001, n_digits=+0.001
+    [date] top-8 perm importance: dist_to_kw_above=+0.141, w_ratio=+0.044, rel_x=+0.039, n_dates_image=+0.018, pat_id=+0.016, match_len=+0.009, is_top_half=+0.000, is_top_25=+0.000
+    [address] top-8 perm importance: total_chars=+0.001, ends_at_postcode=+0.000, comma_count=+0.000, n_lines_total=+0.000, start_idx_norm=+0.000, block_hits=+0.000, first_line_is_block=+0.000, is_top_15=+0.000
+    [total] top-8 perm importance: val_rank=+0.107, ratio_to_global_max=+0.041, dist_to_cash_above=+0.029, dist_to_tier2_below=+0.018, h_ratio=+0.015, log_val=+0.013, line_idx_norm=+0.010, w_ratio=+0.010
+
+======================================================================================
+  TEST RESULTS  (N=347)   primary metric: ANLS
+======================================================================================
+  KEY              F1       EM     ANLS    EXTRACT_ms    TOTAL_ms/img
+  --------------------------------------------------------------------------------
+  COMPANY      89.09%   61.38%   89.89%       0.282          674.54
+  DATE         92.12%   91.93%   94.32%       0.130          674.39
+  ADDRESS      83.96%   25.07%   90.94%       0.731          674.99
+  TOTAL        84.15%   84.15%   91.52%       0.345          674.61
+  --------------------------------------------------------------------------------
+  AVERAGE      87.33%   65.63%   91.67%
+
+  Shared OCR pipeline (YOLO+Merge+TrOCR) avg/image: 674.26 ms
+  (TOTAL_ms/img = shared OCR + per-key extraction)
+======================================================================================
+  Saved: ranker_{company,date,address,total}.pkl, ytrex_predictions.csv, ytrex_ranker_test_results.csv
+
+>>> RUNNING STAGE 3 <<<
+
+================================================================
+  STAGE 3 — ERROR TAXONOMY (per-key, 4×3 table)
+================================================================
+
+  Total test images: 347
+
+  KEY          YOLO_Miss   TrOCR_Err   Wrong_Sel    Errors   Correct    NoGT
+  --------------------------------------------------------------------------
+  COMPANY              0          59          29        88       259       0
+  DATE                17          10           1        28       319       0
+  ADDRESS              1          57          20        78       269       0
+  TOTAL                5           4          46        55       292       0
+  --------------------------------------------------------------------------
+
+  % of errors per key:
+  KEY         YOLO_Miss%  TrOCR_Err%  Wrong_Sel%
+  --------------------------------------------------
+  COMPANY           0.0%       67.0%       33.0%
+  DATE             60.7%       35.7%        3.6%
+  ADDRESS           1.3%       73.1%       25.6%
+  TOTAL             9.1%        7.3%       83.6%
+
+  Example errors (up to 3 per key):
+  [COMPANY]
+    X51005230605 Wrong_Selection  pred='ALSERKAM ENTERPRISE' gt='PETRON BKT LANJAN SB'
+    X51005288570 TrOCR_Error      pred='CORPORATION S/B' gt='SECURE PARKING CORPORATION S/B'
+    X51005337867 TrOCR_Error      pred='OLD TOWN KOPITIAM SDN BHD' gt='OLD TOWN KOPITAM SND BHD'
+  [DATE]
+    X00016469671 YOLO_Miss        pred='02/01/2018' gt='02/01/2019'
+    X51005288570 Wrong_Selection  pred='' gt='23.03.18'
+    X51005361906 YOLO_Miss        pred='' gt='27/01/2018'
+  [ADDRESS]
+    X51005230616 Wrong_Selection  pred='LEVEL 6, BANGUNAN TH, DAMANSARA UPTOWN3, NO.3, JALAN SS21/39' gt='LEVEL 6, BANGUNAN TH, DAMANSARA UPTOWN3 NO.3, JALAN SS21/39,'
+    X51005268408 TrOCR_Error      pred='LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY, 41150 KLANG, SEL' gt='LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELA'
+    X51005361906 TrOCR_Error      pred='NO. 53, JALAN BESAR,45600 BATANG BERBUNTAI' gt='NO. 53, JALAN BESAR, 45600 BATANG BERJUNTAI SELANGOR DARUL E'
+  [TOTAL]
+    X51005230648 Wrong_Selection  pred='6.36' gt='6.35'
+    X51005288570 Wrong_Selection  pred='23.03' gt='1.00'
+    X51005337867 TrOCR_Error      pred='30.24' gt='30.25'
+
+  Saved: error_taxonomy.csv
+================================================================
+
+>>> ALL DONE <<<

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+
+# local runs
+work/
+/kernel_log.txt
+ranker_*.pkl
+
+# model weights
+*.pt

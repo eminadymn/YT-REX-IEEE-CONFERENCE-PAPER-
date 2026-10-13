@@ -1,0 +1,11 @@
+stage3,key,f1,em
+regex,company,75.86,52.16
+regex,date,91.55,91.35
+regex,address,77.12,18.16
+regex,total,39.77,39.77
+regex,AVG,71.07,50.36
+learnt,company,89.09,61.38
+learnt,date,92.12,91.93
+learnt,address,83.96,25.07
+learnt,total,84.15,84.15
+learnt,AVG,87.33,65.63

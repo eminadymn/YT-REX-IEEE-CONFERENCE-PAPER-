@@ -1,0 +1,6 @@
+key,feature,direction,train_sel_acc,test_f1,test_em
+company,has_comp_kw_below,min,82.27,86.37,58.21
+date,dist_to_kw_above,min,97.52,96.57,96.36
+address,comma_per_line,max,47.6,69.52,19.6
+total,has_cash_in_ctx,max,63.42,69.74,69.74
+AVG,-,-,,80.55,60.98

@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "YT-Rex: A Modular Receipt Information Extraction Workflow with a Small Learnt Ranker on Spatial Features"
+type: software
+authors:
+  - family-names: Adıyaman
+    given-names: Muhammed
+    affiliation: Istanbul Technical University
+  - family-names: Keskinoz
+    given-names: Mehmet
+    affiliation: Istanbul Technical University
+preferred-citation:
+  type: conference-paper
+  title: "YT-Rex: A Modular Receipt Information Extraction Workflow with a Small Learnt Ranker on Spatial Features"
+  authors:
+    - family-names: Adıyaman
+      given-names: Muhammed
+      affiliation: Istanbul Technical University
+    - family-names: Keskinoz
+      given-names: Mehmet
+      affiliation: Istanbul Technical University
+  collection-title: "Innovations in Intelligent Systems and Applications Conference (ASYU)"
+  publisher:
+    name: IEEE
+  year: 2026

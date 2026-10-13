@@ -1,0 +1,14 @@
+# Detection and recognition (01_data_preparation.py, baselines/), GPU recommended
+torch
+ultralytics
+transformers
+pillow
+
+# Rankers, error analysis and ablations, CPU is enough
+numpy
+pandas
+pyarrow
+scikit-learn
+
+# Only for kaggle_run.py
+# kaggle

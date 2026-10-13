@@ -1,0 +1,16 @@
+stage3,key,f1,em
+regex v1 (author's),company,75.86,52.16
+regex v1 (author's),date,91.55,91.35
+regex v1 (author's),address,77.12,18.16
+regex v1 (author's),total,39.77,39.77
+regex v1 (author's),AVG,71.07,50.36
+heuristic v2 (strengthened),company,57.21,40.35
+heuristic v2 (strengthened),date,91.55,91.35
+heuristic v2 (strengthened),address,71.33,23.92
+heuristic v2 (strengthened),total,57.93,57.93
+heuristic v2 (strengthened),AVG,69.50,53.39
+learnt rankers (deployed),company,89.09,61.38
+learnt rankers (deployed),date,92.12,91.93
+learnt rankers (deployed),address,83.96,25.07
+learnt rankers (deployed),total,84.15,84.15
+learnt rankers (deployed),AVG,87.33,65.63
